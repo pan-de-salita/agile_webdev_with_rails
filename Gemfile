@@ -61,7 +61,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-  gem 'rails_live_reload'
+  gem 'hotwire-spark'
 end
 
 group :test do

@@ -2,7 +2,7 @@ class LineItemsController < ApplicationController
   include CurrentCart
   include StoreVisitCount
 
-  before_action :set_cart, only: %i[create]
+  before_action :set_cart, only: %i[create destroy]
   before_action :set_line_item, only: %i[show edit update destroy]
 
   # GET /line_items or /line_items.json
@@ -32,7 +32,7 @@ class LineItemsController < ApplicationController
       if @line_item.save
         reset_store_visit_count
 
-        format.html { redirect_to cart_url(@line_item.cart), notice: 'Line item was successfully created.' }
+        format.html { redirect_to cart_url(@line_item.cart) }
         format.json { render :show, status: :created, location: @line_item }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -59,7 +59,9 @@ class LineItemsController < ApplicationController
     @line_item.destroy!
 
     respond_to do |format|
-      format.html { redirect_to line_items_path, status: :see_other, notice: 'Line item was successfully destroyed.' }
+      format.html do
+        redirect_to @cart, status: :see_other, notice: 'Line item was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end

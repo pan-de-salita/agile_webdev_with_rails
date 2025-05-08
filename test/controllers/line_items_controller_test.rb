@@ -22,13 +22,8 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
 
     follow_redirect!
 
-    assert_select 'h2', 'Your Pragmatic Cart'
-    # assert_select 'li', "1 \u00D7 Programming Ruby 1.9"
-    assert_select 'li' do |elements|
-      elements.any? do |element|
-        element.text.split(' ') == "1 \u00D7 Programming Ruby 1.9".split(' ')
-      end
-    end
+    assert_select 'h2', 'Your Cart'
+    assert_select 'td', 'Programming Ruby 1.9'
   end
 
   test 'should show line_item' do
