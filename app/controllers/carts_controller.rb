@@ -9,7 +9,7 @@ class CartsController < ApplicationController
 
   # GET /carts/1 or /carts/1.json
   def show
-    return unless @cart.id != session[:cart_id]
+    return if own_cart?
 
     invalid_cart
   end
@@ -76,5 +76,9 @@ class CartsController < ApplicationController
   def invalid_cart
     logger.error "Attempt to access invalid cart #{params[:id]}"
     redirect_to store_index_url, notice: 'Invalid cart'
+  end
+
+  def own_cart?
+    @cart.id == session[:cart_id]
   end
 end

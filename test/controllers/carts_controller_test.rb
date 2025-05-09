@@ -24,7 +24,9 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show cart' do
-    get cart_url(@cart)
+    post line_items_url, params: { product_id: products(:one).id }
+
+    get store_index_url
     assert_response :success
   end
 
@@ -57,7 +59,7 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal @cart.line_items.length, 3
     @cart.line_items.each { |line_item| assert_equal line_item.quantity, 1 }
-    assert_redirected_to cart_url(@cart)
+    assert_redirected_to store_index_url
   end
 
   test 'should add duplicate products to cart' do
@@ -68,6 +70,6 @@ class CartsControllerTest < ActionDispatch::IntegrationTest
 
     assert_equal @cart.line_items.length, 1
     assert_equal @cart.line_items.first.quantity, 3
-    assert_redirected_to cart_url(@cart)
+    assert_redirected_to store_index_url
   end
 end
