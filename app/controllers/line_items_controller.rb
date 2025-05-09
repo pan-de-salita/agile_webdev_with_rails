@@ -32,6 +32,19 @@ class LineItemsController < ApplicationController
       if @line_item.save
         reset_store_visit_count
 
+        # whenever we get a request that accepts a turbo stream response, we render a turbo stream
+        # response consisting of turbo stream replace, specifying an HTML element ID of cart as the
+        # element to be replaced, and rendering the partial, which can be found in
+        # app/views/application/_cart.html.erb using the value of @cart as the value of cart.
+        # format.turbo_stream do
+        #   render turbo_stream: turbo_stream.replace(
+        #     :cart,
+        #     partial: 'layouts/cart',
+        #     locals: { cart: @cart }
+        #   )
+        # end
+
+        format.turbo_stream
         format.html { redirect_to store_index_url }
         format.json { render :show, status: :created, location: @line_item }
       else
