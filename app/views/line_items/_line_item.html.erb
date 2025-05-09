@@ -1,7 +1,11 @@
 <%# inside a partial template, we refer to the current object by using the variable name that %>
 <%# matches the name of the template. here, line_item %>
 
+<% if line_item == @current_item %>
+<tr class="line-item-highlight">
+<% else %>
 <tr>
+<% end %>
   <td class="text-right">
     <%= line_item.quantity %>
   </td>
