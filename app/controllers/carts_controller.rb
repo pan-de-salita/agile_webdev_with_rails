@@ -1,5 +1,9 @@
 class CartsController < ApplicationController
+  include CurrentCart
+  include StoreVisitCount
+
   before_action :set_cart, only: %i[show edit update destroy]
+  before_action :reset_store_visit_count, only: %i[destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts or /carts.json
@@ -56,6 +60,7 @@ class CartsController < ApplicationController
     session[:cart_id] = nil
 
     respond_to do |format|
+      format.turbo_stream
       format.html { redirect_to store_index_url, notice: 'Your cart is currently empty.' }
       format.json { head :no_content }
     end

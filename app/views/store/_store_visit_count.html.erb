@@ -1,0 +1,6 @@
+<% if store_visit_count %>
+  <span id="store_visit_count">You've visited this page
+    <%= pluralize(store_visit_count, "time") %>.</span>
+<% else %>
+  <div id="store_visit_count"></div>
+<% end %>

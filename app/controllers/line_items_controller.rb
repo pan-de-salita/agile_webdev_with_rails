@@ -69,13 +69,17 @@ class LineItemsController < ApplicationController
 
   # DELETE /line_items/1 or /line_items/1.json
   def destroy
-    if @line_item.quantity == 1
-      @line_item.destroy!
-    else
-      @line_item.update(quantity: @line_item.quantity - 1)
-    end
+    @line_item.decrement_or_destroy
 
     respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          'cart',
+          partial: 'layouts/cart',
+          locals: { cart: @cart }
+        )
+      end
+
       format.html do
         redirect_to store_index_url, status: :see_other, notice: 'Line item was successfully destroyed.'
       end

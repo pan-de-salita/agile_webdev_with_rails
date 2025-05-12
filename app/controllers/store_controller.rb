@@ -7,5 +7,18 @@ class StoreController < ApplicationController
 
   def index
     @products = Product.order(:title)
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(
+          'store_visit_count',
+          partial: 'store_visit_count',
+          locals: { store_visit_count: @store_visit_count }
+        )
+      end
+
+      format.html
+      format.json
+    end
   end
 end
