@@ -56,3 +56,5 @@ Product.create!(title: 'Modern CSS with Tailwind',
       </p>),
                 image_url: 'tailwind.jpg',
                 price: 18.95)
+
+['Check', 'Credit card', 'Purchase order'].each { |pay_type| PayType.create(name: pay_type) }

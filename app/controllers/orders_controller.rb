@@ -25,6 +25,8 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
+    puts @order
+
     @order = Order.new(order_params)
     @order.add_line_items_from_cart(@cart)
 
@@ -33,12 +35,8 @@ class OrdersController < ApplicationController
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
 
-        puts 'REDIRECTING'
-
         format.html { redirect_to store_index_url, notice: 'Thank you for your order.' }
         format.json { render :show, status: :created, location: @order }
-
-        puts 'REDIRECTED'
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @order.errors, status: :unprocessable_entity }
@@ -78,7 +76,7 @@ class OrdersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def order_params
-    params.require(:order).permit(:name, :address, :email, :pay_type)
+    params.require(:order).permit(:name, :address, :email, :pay_type_id)
   end
 
   def ensure_cart_isnt_empty
