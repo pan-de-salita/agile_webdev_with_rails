@@ -26,6 +26,7 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
+    puts @processed_params
     @order = Order.new(@processed_params)
     @order.add_line_items_from_cart(@cart)
 
@@ -84,9 +85,18 @@ class OrdersController < ApplicationController
     redirect_to store_index_url, notice: 'Your cart is empty'
   end
 
+  # def process_params
+  #   @processed_params = order_params
+  #                       .except(:pay_type)
+  #                       .merge!({ pay_type_id: PayType.find_by!(name: order_params[:pay_type]).id })
+  # end
+
   def process_params
-    @processed_params = order_params
-                        .except(:pay_type)
-                        .merge!({ pay_type_id: PayType.find_by!(name: order_params[:pay_type]).id })
+    pay_type_name = order_params[:pay_type]
+    pay_type = PayType.find_by(name: pay_type_name)
+
+    raise ActiveRecord::RecordNotFound, "Pay type '#{pay_type_name}' not found" unless pay_type
+
+    @processed_params = order_params.except(:pay_type).merge(pay_type_id: pay_type.id)
   end
 end
