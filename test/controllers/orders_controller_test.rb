@@ -28,7 +28,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Order.count') do
       post orders_url,
            params: { order: { address: @order.address, email: @order.email, name: @order.name,
-                              pay_type_id: @pay_type.id } }
+                              pay_type: @pay_type.name } }
     end
 
     assert_redirected_to store_index_url
@@ -47,7 +47,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
   test 'should update order' do
     patch order_url(@order),
           params: { order: { address: @order.address, email: @order.email, name: @order.name,
-                             pay_type_id: @pay_type.id } }
+                             pay_type: @pay_type.name } }
 
     assert_redirected_to order_url(@order)
   end
