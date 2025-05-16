@@ -26,7 +26,6 @@ class OrdersController < ApplicationController
 
   # POST /orders or /orders.json
   def create
-    puts @processed_params
     @order = Order.new(@processed_params)
     @order.add_line_items_from_cart(@cart)
 
@@ -98,5 +97,18 @@ class OrdersController < ApplicationController
     raise ActiveRecord::RecordNotFound, "Pay type '#{pay_type_name}' not found" unless pay_type
 
     @processed_params = order_params.except(:pay_type).merge(pay_type_id: pay_type.id)
+  end
+
+  def pay_type_params
+    case order_params[:pay_type]
+    when 'Credit card'
+      params.require(:order).permit(:credit_card_number, :expiration_date)
+    when 'Check'
+      params.require(:order).permit(:routing_number, :account_number)
+    when 'Purchase order'
+      params.require(:order).permit(:po_number)
+    else
+      {}
+    end
   end
 end

@@ -12,6 +12,14 @@
     } %>
   </div>
 
+  <!-- <div class="bg-red-200 my-4"> -->
+    <%#= form_with url: store_index_path, method: :post do |form| %>
+      <%#= form.search_field :title_search,
+                        oninput: "this.form.requestSubmit()",
+                        style: "width: 100%;" %>
+    <%# end %>
+  <!-- </div> -->
+
   <%= turbo_stream_from "products" %>
 
   <ul>

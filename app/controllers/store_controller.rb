@@ -6,7 +6,11 @@ class StoreController < ApplicationController
   before_action :set_store_visit_count, only: %i[index]
 
   def index
-    @products = Product.order(:title)
+    @products = if params[:search].present?
+                  Product.all.select { |product| product.title.downcase.include?(params[:search]) }
+                else
+                  Product.order(:title)
+                end
 
     respond_to do |format|
       format.turbo_stream do
