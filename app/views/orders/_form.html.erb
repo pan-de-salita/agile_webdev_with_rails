@@ -35,7 +35,10 @@
       <%= form.label :pay_type %>
       <%= form.select :pay_type,
                   PayType.pluck(:name),
-                  { prompt: "Select a payment method" },
+                  {
+                    prompt: "Select a payment method",
+                    selected: form.object.pay_type&.name,
+                  },
                   "data-payment-target" => "selection",
                   "data-action" => "payment#showAdditionalFields",
                   :class => "input-field" %>
