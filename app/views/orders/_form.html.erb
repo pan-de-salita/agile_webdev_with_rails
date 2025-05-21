@@ -44,13 +44,29 @@
                   :class => "input-field" %>
     </div>
 
-    <%= render partial: "check", locals: { form: form } %>
-    <%= render partial: "cc", locals: { form: form } %>
-    <%= render partial: "po", locals: { form: form } %>
+    <% if !form.object %>
+      <%= render partial: "check", locals: { form: form } %>
+      <%= render partial: "cc", locals: { form: form } %>
+      <%= render partial: "po", locals: { form: form } %>
+    <% end %>
   </div>
 
+  <% if form.object %>
+    <div class="my-5">
+      <%= form.label :ship_date %>
+      <%= form.date_select :ship_date, class: "input-field" %>
+    </div>
+  <% end %>
+
   <div class="inline">
-    <%= form.submit class:
+    <%= form.submit (
+                  if form.object
+                    "Ship Order"
+                  else
+                    "Create Order"
+                  end
+                ),
+                class:
                   "rounded-lg py-3 px-5 bg-green-200 text-black inline-block font-medium cursor-pointer" %>
   </div>
 <% end %>

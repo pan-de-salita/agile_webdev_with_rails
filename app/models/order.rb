@@ -52,4 +52,8 @@ class Order < ApplicationRecord
 
     OrderMailer.received(self).deliver_later
   end
+
+  def shipped?
+    !!ship_date
+  end
 end
