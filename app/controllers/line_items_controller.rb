@@ -11,8 +11,7 @@ class LineItemsController < ApplicationController
   end
 
   # GET /line_items/1 or /line_items/1.json
-  def show
-  end
+  def show; end
 
   # GET /line_items/new
   def new
@@ -20,8 +19,7 @@ class LineItemsController < ApplicationController
   end
 
   # GET /line_items/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /line_items or /line_items.json
   def create

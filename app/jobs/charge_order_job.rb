@@ -4,6 +4,18 @@
 class ChargeOrderJob < ApplicationJob
   queue_as :default
 
+  # User
+  # |
+  # A. OrdersController
+  # - Save Order
+  # - Start Background Job ---> B
+  # - Render "Thank You"
+  # B. ChargeOrderJob
+  # - Call Order.charge! ---> C
+  # C. Order
+  # - Call Pago
+  # - Send Email
+
   def perform(order, pay_type_params)
     order.charge!(pay_type_params)
   end

@@ -26,14 +26,14 @@ class Order < ApplicationRecord
     payment_details = {}
     payment_method = nil
 
-    case pay_type
+    case pay_type.name # Using .name because pay_type itself returns a PayType object
     when 'Check'
       payment_method = :check
       payment_details[:routing] = pay_type_params[:routing_number]
       payment_details[:account] = pay_type_params[:account_number]
     when 'Credit card'
       payment_method = :credit_card
-      month, year = pay_type_params[:expiration_date].split(//)
+      month, year = pay_type_params[:expiration_date].split('')
       payment_details[:cc_num] = pay_type_params[:credit_card_number]
       payment_details[:expiration_month] = month
       payment_details[:expiration_year] = year
