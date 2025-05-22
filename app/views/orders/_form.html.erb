@@ -44,14 +44,14 @@
                   :class => "input-field" %>
     </div>
 
-    <% if !form.object %>
+    <% if !form.object.persisted? %>
       <%= render partial: "check", locals: { form: form } %>
       <%= render partial: "cc", locals: { form: form } %>
       <%= render partial: "po", locals: { form: form } %>
     <% end %>
   </div>
 
-  <% if form.object %>
+  <% if form.object.persisted? %>
     <div class="my-5">
       <%= form.label :ship_date %>
       <%= form.date_select :ship_date, class: "input-field" %>
@@ -60,7 +60,7 @@
 
   <div class="inline">
     <%= form.submit (
-                  if form.object
+                  if form.object.persisted?
                     "Ship Order"
                   else
                     "Create Order"

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :users
   resources :orders
   root to: 'store#index', as: 'store_index'
 
