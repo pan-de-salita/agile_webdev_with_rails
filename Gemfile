@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '3.4.3'
+ruby '3.4.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.1.5', '>= 7.1.5.1'
@@ -62,6 +62,12 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   gem 'hotwire-spark'
+
+  gem 'annotate_model'
+  gem 'solargraph'
+  gem 'solargraph-rails'
+  # gem 'ruby-lsp'
+  # gem 'ruby-lsp-rails'
 end
 
 group :test do

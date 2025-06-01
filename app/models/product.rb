@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# id         :integer         not null
+# title      :string         
+# description :text           
+# image_url  :string         
+# price      :decimal        
+# created_at :datetime        not null
+# updated_at :datetime        not null
+# ==
 class Product < ApplicationRecord
   validates :title, :description, :image_url, presence: true
   validates :title, uniqueness: true
