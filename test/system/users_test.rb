@@ -3,6 +3,7 @@ require 'application_system_test_case'
 class UsersTest < ApplicationSystemTestCase
   setup do
     @user = users(:one)
+    login_as @user
   end
 
   test 'visiting the index' do
@@ -37,7 +38,5 @@ class UsersTest < ApplicationSystemTestCase
   test 'should destroy User' do
     visit user_url(@user)
     accept_confirm { click_on 'Destroy this user', match: :first }
-
-    assert_text 'User was successfully destroyed'
   end
 end

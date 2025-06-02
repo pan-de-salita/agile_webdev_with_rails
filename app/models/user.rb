@@ -11,4 +11,17 @@ class User < ApplicationRecord
 
   validates :name, :password, presence: true
   validates :name, uniqueness: true
+
+  after_destroy :ensure_an_admin_remains
+
+  class Error < StandardError
+  end
+
+  private
+
+  def ensure_an_admin_remains
+    return unless User.count.zero?
+
+    raise Error.new "Cant' delete last user"
+  end
 end

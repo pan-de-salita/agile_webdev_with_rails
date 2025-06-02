@@ -28,6 +28,23 @@
           <li><a href="/questions">Questions</a></li>
           <li><a href="/news">News</a></li>
           <li><a href="/contact">Contact</a></li>
+
+          <% if session[:user_id] %>
+            <hr class="my-2">
+
+            <ul class="text-gray-300 leading-8">
+              <li><%= link_to "Orders", orders_path %></li>
+              <li><%= link_to "Products", products_path %></li>
+              <li><%= link_to "Users", users_path %></li>
+              <li><%= button_to "Logout",
+                logout_url,
+                method: :delete,
+                class: "cursor-pointer",
+                data: {
+                  turbo: false,
+                } %></li>
+            </ul>
+          <% end %>
         </ul>
         <h3 class="text-gray-300">
           <%= DateTime.now %>

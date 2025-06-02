@@ -2,6 +2,8 @@ class CartsController < ApplicationController
   include CurrentCart
   include StoreVisitCount
 
+  skip_before_action :authorize, only: %i[create update destroy]
+
   before_action :set_cart, only: %i[show edit update destroy]
   before_action :reset_store_visit_count, only: %i[destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart

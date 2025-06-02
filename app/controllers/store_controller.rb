@@ -2,6 +2,8 @@ class StoreController < ApplicationController
   include CurrentCart
   include StoreVisitCount
 
+  skip_before_action :authorize
+
   before_action :set_cart, only: %i[index]
   before_action :set_store_visit_count, only: %i[index]
 
