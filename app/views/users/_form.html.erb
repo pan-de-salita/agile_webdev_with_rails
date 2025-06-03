@@ -22,13 +22,21 @@
     <%= form.text_field :name, class: "input-field" %>
   </div>
 
+  <% if @user.persisted? %>
+    <div class="my-5">
+      <%= form.label :old_password, "Old Password:" %>
+      <%= form.password_field :old_password, class: "input-field" %>
+    </div>
+  <% end %>
+
   <div class="my-5">
-    <%= form.label :password, "Password:" %>
+    <%= form.label :password, @user.persisted? ? "New Password" : "Password:" %>
     <%= form.password_field :password, class: "input-field" %>
   </div>
 
   <div class="my-5">
-    <%= form.label :password_confirmation, "Confirm:" %>
+    <%= form.label :password_confirmation,
+               @user.persisted? ? "Confirm New Password:" : "Confirm" %>
     <%= form.password_field :password_confirmation,
                         id: :user_password_confirmation,
                         class: "input-field" %>
