@@ -69,7 +69,7 @@ class UsersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    if !@user.persisted?
+    if !@user&.persisted?
       params.require(:user).permit(:name, :password, :password_confirmation)
     else
       params.require(:user).permit(:name, :password, :password_confirmation, :old_password)

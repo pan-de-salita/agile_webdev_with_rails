@@ -28,8 +28,9 @@ class UsersTest < ApplicationSystemTestCase
     click_on 'Edit this user', match: :first
 
     fill_in 'Name', with: @user.name
-    fill_in 'Password', with: 'secret'
-    fill_in 'Confirm', with: 'secret'
+    fill_in 'Old Password', with: 'secret'
+    fill_in 'New Password', with: 'newsecret'
+    fill_in 'Confirm New Password', with: 'newsecret'
     click_on 'Update User'
 
     assert_text "User #{@user.name} was successfully updated"
