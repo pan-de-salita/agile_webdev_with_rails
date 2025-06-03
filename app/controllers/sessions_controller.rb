@@ -4,7 +4,15 @@ class SessionsController < ApplicationController
   def new; end
 
   def create
-    user = User.find_by(name: params[:name])
+    user = if User.count.zero?
+             User.create(
+               name: params[:name],
+               password: params[:password],
+               password_confirmation: params[:password_confirmation]
+             )
+           else
+             User.find_by(name: params[:name])
+           end
 
     if user&.authenticate(params[:password])
       session[:user_id] = user.id

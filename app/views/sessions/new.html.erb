@@ -10,6 +10,17 @@
     </p>
   <% end %>
 
+  <% if alert.present? %>
+    <p
+      class="
+        py-2 px-3 bg-red-50 mg-5 text-red-500 font-medium rounded-lg inline-block
+      "
+      id="notice"
+    >
+      <%= alert %>
+    </p>
+  <% end %>
+
   <%= form_with url: login_path, local: true, method: :post, data: { turbo: false } do |form| %>
     <h2 class="font-bold text-3xl">
       Please Log In</h2>
