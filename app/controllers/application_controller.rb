@@ -5,17 +5,22 @@ class ApplicationController < ActionController::Base
   protected
 
   def set_i18n_locale_from_params
-    return unless params[:locale]
+    return I18n.locale = I18n.default_locale unless params[:locale]
 
-    if I18n.available_locales.map(&:to_s).include?(params[:locale])
+    if valid_locale?
       I18n.locale = params[:locale]
     else
+      I18n.locale = I18n.default_locale
       flash.now[:notice] = "#{params[:locale]} translation not available"
       logger.error flash.now[:notice]
     end
   end
 
   private
+
+  def valid_locale?
+    I18n.available_locales.map(&:to_s).include?(params[:locale])
+  end
 
   def authorize
     return if User.find_by(id: session[:user_id])
