@@ -1,13 +1,13 @@
 # == Schema Information
 #
 # id         :integer         not null
-# name       :string         
-# address    :text           
-# email      :string         
+# name       :string
+# address    :text
+# email      :string
 # created_at :datetime        not null
 # updated_at :datetime        not null
-# pay_type_id :integer        
-# ship_date  :datetime       
+# pay_type_id :integer
+# ship_date  :datetime
 # ==
 require 'active_model/serialization'
 require 'pago'

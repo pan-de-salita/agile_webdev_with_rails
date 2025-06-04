@@ -24,3 +24,25 @@ es:
         separator: ","
         delimiter: "."
         format: "%n&nbsp;%u"
+  orders:
+    new:
+      legend: "Por favor, introduzca sus datos"
+    form:
+      name: "Nombre"
+      address_html: "Direcci&oacute;n"
+      email: "Email"
+      pay_type: "Forma de pago"
+      pay_prompt_html: "Seleccione un metodo de pago"
+      submit: "Realiza Pedido"
+      pay_types:
+        "Check": "Check"
+        "Credit card": "Credit card"
+        "Purchase order": "Purchase order"
+    check:
+      routing_number: "Routing number"
+      account_number: "Account number"
+    cc:
+      routing_number: "Credit card number"
+      expiration_date: "Expiration date"
+    po:
+      po_number: "Po number"

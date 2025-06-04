@@ -10,35 +10,35 @@ class OrdersTest < ApplicationSystemTestCase
 
     click_on 'Checkout'
 
-    assert has_no_field? 'Routing number'
-    assert has_no_field? 'Account number'
-    assert has_no_field? 'Credit card number'
-    assert has_no_field? 'Expiration date'
-    assert has_no_field? 'Po number'
+    assert has_no_field? 'order[routing_number]'
+    assert has_no_field? 'order[account_number]'
+    assert has_no_field? 'order[credit_card_number]'
+    assert has_no_field? 'order[expiration_date]'
+    assert has_no_field? 'order[po_number]'
 
-    select 'Check', from: 'Pay type'
+    select 'Check', from: 'order[pay_type]'
 
-    assert has_field? 'Routing number'
-    assert has_field? 'Account number'
-    assert has_no_field? 'Credit card number'
-    assert has_no_field? 'Expiration date'
-    assert has_no_field? 'Po number'
+    assert has_field?    'order[routing_number]'
+    assert has_field?    'order[account_number]'
+    assert has_no_field? 'order[credit_card_number]'
+    assert has_no_field? 'order[expiration_date]'
+    assert has_no_field? 'order[po_number]'
 
-    select 'Credit card', from: 'Pay type'
+    select 'Credit card', from: 'order[pay_type]'
 
-    assert has_no_field? 'Routing number'
-    assert has_no_field? 'Account number'
-    assert has_field? 'Credit card number'
-    assert has_field? 'Expiration date'
-    assert has_no_field? 'Po number'
+    assert has_no_field? 'order[routing_number]'
+    assert has_no_field? 'order[account_number]'
+    assert has_field?    'order[credit_card_number]'
+    assert has_field?    'order[expiration_date]'
+    assert has_no_field? 'order[po_number]'
 
-    select 'Purchase order', from: 'Pay type'
+    select 'Purchase order', from: 'order[pay_type]'
 
-    assert has_no_field? 'Routing number'
-    assert has_no_field? 'Account number'
-    assert has_no_field? 'Credit card number'
-    assert has_no_field? 'Expiration date'
-    assert has_field? 'Po number'
+    assert has_no_field? 'order[routing_number]'
+    assert has_no_field? 'order[account_number]'
+    assert has_no_field? 'order[credit_card_number]'
+    assert has_no_field? 'order[expiration_date]'
+    assert has_field?    'order[po_number]'
   end
 
   test 'check order and delivery' do
@@ -51,15 +51,15 @@ class OrdersTest < ApplicationSystemTestCase
 
     click_on 'Checkout'
 
-    fill_in 'Name', with: 'Dave Thomas'
-    fill_in 'Address', with: '123 Main Street'
-    fill_in 'Email', with: 'dave@example.com'
+    fill_in 'order[name]', with: 'Dave Thomas'
+    fill_in 'order[address]', with: '123 Main Street'
+    fill_in 'order[email]', with: 'dave@example.com'
 
-    select 'Check', from: 'Pay type'
-    fill_in 'Routing number', with: '123456'
-    fill_in 'Account number', with: '987654'
+    select 'Check', from: 'order[pay_type]'
+    fill_in 'order[routing_number]', with: '123456'
+    fill_in 'order[account_number]', with: '987654'
 
-    click_button 'Create Order'
+    click_button 'Place Order'
     assert_text 'Thank you for your order'
 
     perform_enqueued_jobs # calls ChargeOrderJob, which calls Order#charge!()

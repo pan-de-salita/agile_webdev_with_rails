@@ -1,7 +1,7 @@
 # == Schema Information
 #
 # id         :integer         not null
-# name       :string         
+# name       :string
 # created_at :datetime        not null
 # updated_at :datetime        not null
 # ==
