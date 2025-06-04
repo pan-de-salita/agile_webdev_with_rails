@@ -7,14 +7,16 @@ Rails.application.routes.draw do
   end
 
   resources :users
-  resources :orders
-  root to: 'store#index', as: 'store_index'
-
-  # post 'search', to: 'store#index', as: 'search'
-
-  resources :line_items
-  resources :carts
   resources :products do
     get :who_bought, on: :member
   end
+
+  scope '(:locale)' do # :local is in parentheses, meaning that it's optional
+    resources :orders
+    resources :line_items
+    resources :carts
+    root 'store#index', as: 'store_index', via: :all
+  end
+
+  # post 'search', to: 'store#index', as: 'search'
 end
